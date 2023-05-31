@@ -11,9 +11,6 @@ class ProductManager {
   getProductById(num) {
     return this.products.find((e) => e.idProduct === num);
   }
-  getProductById(num) {
-    return this.products.find((e) => e.idProduct === num);
-  }
 
 
   addProducts(product) {
