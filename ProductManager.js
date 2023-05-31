@@ -1,35 +1,36 @@
 class ProductManager {
-    static countId = 0
+  static countId = 0;
 
   constructor() {
     this.products = [];
   }
 
-  getProducts(){
-
-    return this.products
+  getProducts() {
+    return this.products;
   }
+  getProductById(num) {
+    return this.products.find((e) => e.idProduct === num);
+  }
+  getProductById(num) {
+    return this.products.find((e) => e.idProduct === num);
+  }
+
 
   addProducts(product) {
     console.log(this.products.some((e) => e.codeP === product.codeP));
 
     if (!this.products.some((e) => e.codeP === product.codeP)) {
       this.products.push(product);
-        product.idProduct = ProductManager.countId
-        ProductManager.countId++
-        console.log(ProductManager.countId)
-    }
-    else console.log(`Este producto no se pudo agregar: ${product.title}`)
-
-    
-
-    
+      product.idProduct = ProductManager.countId;
+      ProductManager.countId++;
+      console.log(ProductManager.countId);
+    } else console.log(`Este producto no se pudo agregar: ${product.title}`);
   }
 }
 
 class Product {
   static code = 0;
-    idProduct = null
+  idProduct
   constructor(title, description, price, thumbnail, stock) {
     this.title = title;
     this.description = description;
@@ -38,7 +39,6 @@ class Product {
     Product.setCode();
     this.codeP = Product.getCode();
     this.stock = stock;
-    
   }
   static getCode() {
     return Product.code;
@@ -72,6 +72,9 @@ pm1.addProducts(manzana);
 const unArreglo = pm1.getProducts();
 
 console.log("----------------------");
-    console.log(unArreglo);
-    console.log("----------------------");
+console.log(unArreglo);
+console.log("----------------------");
 
+buscarId = pm1.getProductById(1);
+
+console.log(buscarId);
