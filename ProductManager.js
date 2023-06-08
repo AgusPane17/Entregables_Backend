@@ -12,7 +12,6 @@ class ProductManager {
     return this.products.find((e) => e.idProduct === num);
   }
 
-
   addProducts(product) {
     console.log(this.products.some((e) => e.codeP === product.codeP));
 
