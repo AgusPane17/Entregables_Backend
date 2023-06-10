@@ -143,7 +143,6 @@ const product2 = new Product(
   "Sin imagen",
   25
 );
-// const manzana = new Product("manzana", "fruta roja redonda", 20.0, "url", 7);
 
 const pm1 = new ProductManager();
 console.log(pm1.getProducts());
@@ -158,16 +157,3 @@ pm1.delete(2);
 
 pm1.deleteFile();
 
-// pm1.addProducts(manzana);
-// pm1.addProducts(naranja);
-// pm1.addProducts(manzana);
-
-// const unArreglo = pm1.getProducts();
-
-// console.log("----------------------");
-// console.log(unArreglo);
-// console.log("----------------------");
-
-// buscarId = pm1.getProductById(1);
-
-// console.log(buscarId);
