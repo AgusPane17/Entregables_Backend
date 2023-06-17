@@ -63,10 +63,14 @@ class ProductManager {
     const obj = this.getProductById(id);
     if (obj) {
       const lasVariables = Object.keys(obj);
+
       if (lasVariables.includes(myVar)) {
         obj[myVar] = value;
         console.log(`El objeto modificado es ${obj.title}`);
         obj.showAttributes();
+        const listProducts = this.getProducts()
+        listProducts[listProducts.findIndex(e =>e._idProduct === id)] = obj
+        this.saveProducts(listProducts)
       } else {
         console.log("No se encontro la variable " + myVar);
       }
@@ -156,4 +160,6 @@ pm1.updateProduct(2, "descripasdasd", "nueva descripcion");
 pm1.delete(2);
 
 pm1.deleteFile();
+
+
 
