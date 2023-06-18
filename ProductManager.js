@@ -1,5 +1,4 @@
-const fs = require("fs");
-const { get } = require("http");
+import * as fs from 'node:fs'
 
 const filename = "Products.txt";
 const filenameCount = "countId.txt";
@@ -132,34 +131,58 @@ class Product {
 
 // SENTENCIAS
 
-const product = new Product(
-  "producto prueba",
-  "Este es un producto prueba",
-  200,
-  "Sin imagen",
-  25
-);
 
-const product2 = new Product(
-  "producto prueba2",
-  "Este es un producto prueba",
-  200,
-  "Sin imagen",
-  25
-);
+export const PM = () =>{
+  const product1 = new Product(
+    "producto prueba",
+    "Este es un producto prueba",
+    200,
+    "Sin imagen",
+    25
+  );
+  
+  const product2 = new Product(
+    "producto prueba2",
+    "Este es un producto prueba 2",
+    250,
+    "Sin imagen",
+    35
+  );
 
-const pm1 = new ProductManager();
-console.log(pm1.getProducts());
-pm1.addProducts(product);
-console.log(pm1.getProducts());
-pm1.addProducts(product2);
-console.log(pm1.getProducts());
-pm1.updateProduct(1, "title", "nuevo nombre");
-pm1.updateProduct(2, "descripasdasd", "nueva descripcion");
+  const product3 = new Product(
+    "producto prueba3",
+    "Este es un producto prueba 3",
+    300,
+    "Sin imagen",
+    15
+  );
+  
+  const pm1 = new ProductManager();
+  pm1.addProducts(product1);
+  pm1.addProducts(product2);
+  pm1.addProducts(product3);
 
-pm1.delete(2);
+  const listProducts= pm1.getProducts()
+  deletePM(pm1)
+    
+  return listProducts
+}
+function deletePM (PM){
+  PM.deleteFile();
+} 
 
-pm1.deleteFile();
+// const pm1 = new ProductManager();
+// console.log(pm1.getProducts());
+// pm1.addProducts(product);
+// console.log(pm1.getProducts());
+// pm1.addProducts(product2);
+// console.log(pm1.getProducts());
+// pm1.updateProduct(1, "title", "nuevo nombre");
+// pm1.updateProduct(2, "descripasdasd", "nueva descripcion");
+
+// pm1.delete(2);
+
+// pm1.deleteFile();
 
 
 
