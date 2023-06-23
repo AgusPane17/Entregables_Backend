@@ -1,43 +1,56 @@
-import {PM} from './ProductManager.js' 
-import express from 'express'
+import { ProductManager } from "./ProductManager.js";
+import express from "express";
 
-const app = express()
-app.use = (express.json())
-const post = 8080
+const app = express();
+app.use = express.json();
+const post = 8080;
 
+const productManager = new ProductManager();
 
-app.get('/products/', async (req,res)=>{
-    let productList = await PM()
-  res.send(productList);
-
-})
-
-
-app.get('/products/:limit', async (req,res)=>{
-    let productList = await PM()
-    const limit = parseInt(req.query.limit)
-    if(Object.keys(req.query).length > 1){
-        return res.status(400).send('Se ha excedido el límite de parámetros de consulta.')
-    }
-
-    console.log('LIMIT')
+app.get("/products", async (req, res) => {
+  try{
     
-
-  if (limit < productList.length) {
-    let newProducts = productList.slice(0, limit);
-    return res.send(newProducts)
+  
+  let products = await productManager.getProducts();
+  if ((products == undefined)) {
+    throw new Error("Ese id no fue encontrado");
+  }
+  if (req.query.limit) {
+    const limit = parseInt(req.query.limit);
+    if (limit && limit > 0) {
+      products = products.slice(0, limit);
+    }else  throw new Error(" Limit not valid");
+  }else{
+    throw new Error(" Query not valid");
   }
 
-  res.send(productList);
+  res.send(products);
+  }
+  catch(error){
+    
+    console.error(error);
+    res.status(404).json({ status: "error", message: `${error}`});
+  }
+});
 
-})
+app.get("/products/:pid", async (req, res) => {
+  try {
+    const id = Number(req.params.pid);
+    if (id < 0) {
+      throw new Error("Id not valid");
+    }
+    let product = await productManager.getProductById(id);
+    if ((product == undefined)) {
+      throw new Error("Ese id no fue encontrado");
+    }
 
-app.get('/products/pid/:id',async (req,res)=>{
-    let productList = await PM()
-    const id = parseInt(req.params.id)
-    console.log('ID')
-    let product = productList.find(e => e.getIdProduct() === id)
-    res.send(product)
-})
+    res.send(product);
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ status: "error", message: "Product not found" });
+  }
+});
 
-app.listen(post,()=>console.log(`Server is running at ${post}`))
+
+
+app.listen(post, () => console.log(`Server is running at ${post}`));
