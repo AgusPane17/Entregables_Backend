@@ -144,7 +144,7 @@ class Product {
   }
 }
 
-// SENTENCIAS
+// SENTENCIAS para dejar datos guardados
 const product1 = new Product('producto1','decripcion producto 1',500,'no img',10)
 const product2 = new Product('producto2','decripcion producto 2',45,'no img',5)
 const product3 = new Product('producto3','decripcion producto 3',100,'no img',15)

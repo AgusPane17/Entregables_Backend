@@ -51,6 +51,8 @@ app.get("/products/:pid", async (req, res) => {
   }
 });
 
-
+app.post('/products', async (req,res)=>{
+  const product = req.body
+})
 
 app.listen(post, () => console.log(`Server is running at ${post}`));
