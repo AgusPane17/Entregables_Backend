@@ -10,6 +10,7 @@ app.use(express.json());
 
 routerProducts.get("/", async (req, res) => {
   try {
+    
     let products = await productManager1.getProducts();
     if (products == undefined) {
       throw new Error("Ese id no fue encontrado");

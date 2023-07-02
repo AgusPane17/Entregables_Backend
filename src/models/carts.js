@@ -19,53 +19,56 @@ class CartsProducts {
 
   static getCartList(direction) {
     let products = fs.readFileSync(direction, "utf-8");
-    products = JSON.parse(products).map((data) => {
-      const product = new Product(
-        data.title,
-        data.description,
-        data.price,
-        data.thumbnail,
-        data.stock,
-        data.codeP,
-        data.category
-      );
-      product.setIdProduct(data._idProduct);
-      return product;
-    });
+
     return products;
   }
-
- 
 
   static getCountId() {
     if (fs.existsSync(filenameCount)) {
       let idCart = fs.readFileSync(filenameCount, "utf-8");
-      console.log(idCart)
-      fs.writeFileSync(filenameCount, JSON.stringify(JSON.parse(idCart) + 1
-      ))
+      console.log(idCart);
+      fs.writeFileSync(filenameCount, JSON.stringify(JSON.parse(idCart) + 1));
 
       return JSON.parse(idCart) + 1;
     }
-    fs.writeFileSync(filenameCount, JSON.stringify(CartsProducts.cartIdFirst+1))
+    fs.writeFileSync(
+      filenameCount,
+      JSON.stringify(CartsProducts.cartIdFirst + 1)
+    );
     return CartsProducts.cartIdFirst;
   }
 
-
   static getCartById(id) {
-    return fs.readFileSync(fs.readFileSync(`../data/Cart_${id}.txt`, "utf-8"))
-  }
-  static setCartById(id,cart){
-    fs.writeFileSync(`../data/Cart_${id}.txt`, JSON.stringify(CartsProducts.cartIdFirst+1))
+    console.log(`../data/Cart_${id}.txt`);
+    return JSON.parse(fs.readFileSync(`../data/Cart_${id}.txt`, "utf-8"));
   }
 
-  static addCart(idProduct,id) {
-
-    let cartSelect = CartsProducts.getCartById(id)
-
-   cartSelect.push({ "idProduct":idProduct, "cantP":1});
-   setCartById(id,cartSelect)
+  static setCartById(id, cart) {
+    fs.writeFileSync(`../data/Cart_${id}.txt`, JSON.stringify(cart));
   }
 
+  static addCart(idProduct, id) {
+    let cartSelect = CartsProducts.getCartById(id);
+    console.log(cartSelect);
 
+    if (
+      cartSelect.some((e) => {
+        return e.idProduct == idProduct;
+      })
+    ) {
+      const obj = cartSelect.find((e) => {
+       return e.idProduct == idProduct;
+      });
+
+      obj.quantity = obj.quantity + 1;
+      CartsProducts.setCartById(id, cartSelect);
+
+    } else {
+      cartSelect.push({ idProduct: idProduct, quantity: 1 });
+      CartsProducts.setCartById(id, cartSelect);
+    }
+  }
+  delete() {}
 }
-export default CartsProducts
+
+export default CartsProducts;

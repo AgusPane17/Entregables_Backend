@@ -63,8 +63,8 @@ class ProductManager {
 
   getProductById(num) {
     // trae un producto por su ID de el administrador de productos
-    
-    return this.getProducts().find((e) => e.getIdProduct() === num);
+    console.log(this.getProducts().find((e) => e.getIdProduct() == num))
+    return this.getProducts().find((e) => e.getIdProduct() == num);
   }
 
   idProduct() {
